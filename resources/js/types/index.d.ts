@@ -40,3 +40,33 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface FlashProp {
+    message: string;
+    success: string;
+    error: string;
+    type: 'success' | 'error' | 'info';
+}
+
+export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
+    auth: {
+        user: User;
+    };
+    flash?: FlashProp;
+};
+
+export interface ILinkData {
+    active: boolean;
+    label: string;
+    url: string;
+}
+export interface IMetaData {
+    current_page: number;
+    from: number;
+    last_page: number;
+    links: ILinkData[];
+    path: string;
+    per_page: number;
+    to: number;
+    total: number;
+}
