@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Http\Resources\UserResource;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 class TaskController extends Controller
 {
     /**
@@ -16,7 +17,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::with('user')->get();
+        $tasks = Task::where('user_id', Auth::user()->id)->with('user')->get();
         return Inertia::render('Task/Index', [
             'tasks' => TaskResource::collection($tasks)
         ]);
