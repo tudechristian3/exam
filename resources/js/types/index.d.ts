@@ -1,6 +1,7 @@
 import { LucideIcon } from 'lucide-react';
 import type { Config } from 'ziggy-js';
-
+import { Products } from './Products';
+import { Tasks } from './Tasks';
 export interface Auth {
     user: User;
 }
@@ -38,6 +39,8 @@ export interface User {
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
+    products: Products;
+    tasks: Tasks;
     [key: string]: unknown; // This allows for additional properties...
 }
 
