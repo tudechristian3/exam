@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use App\Models\Products;
+use App\Models\Task;
 
 class User extends Authenticatable
 {
@@ -50,5 +51,9 @@ class User extends Authenticatable
 
     public function products(){
         return $this->hasMany(Products::class);
+    }
+
+    public function tasks(){
+        return $this->hasMany(Task::class);
     }
 }
