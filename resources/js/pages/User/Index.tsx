@@ -19,23 +19,6 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-type BadgeVariant = 'pending' | 'in_progress' | 'for_review' | 'completed' | 'default';
-
-const getStatusVariant = (status: string): BadgeVariant => {
-    switch (status.toLowerCase()) {
-        case 'pending':
-            return 'pending'; // red
-        case 'in_progress':
-            return 'in_progress'; // blue
-        case 'for_review':
-            return 'for_review'; // orange
-        case 'completed':
-            return 'completed'; // green
-        default:
-            return 'default';
-    }
-};
-
 export default function Index({ users, flash }: UserProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
