@@ -43,13 +43,15 @@ export default function Index({ products, flash }: EducationProps) {
                         <TableHeader>
                             <TableRow>
                                 <TableHead>Name</TableHead>
+                                <TableHead>Price</TableHead>
                                 <TableHead>Action</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {products.map((product, index) => (
                                 <TableRow key={index}>
-                                    <TableCell className="font-medium">{product.name}</TableCell>
+                                    <TableCell className="font-medium">{product?.name}</TableCell>
+                                    <TableCell className="font-medium">₱{product?.price}</TableCell>
                                     <TableCell>
                                         <Link href={route('products.show', product.id)}>
                                             <Button className="cursor-pointer">Show</Button>
