@@ -8,16 +8,30 @@ use App\Http\Requests\UpdateProductsRequest;
 use Inertia\Inertia;
 use App\Http\Resources\ProductsResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 class ProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Products::where('user_id', Auth::user()->id)->get();
+        // $products = Products::where('user_id', Auth::user()->id)->get();
+        $query = Products::where('user_id', Auth::user()->id)->with('user');
+
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('price', 'like', "%{$search}%");
+            });
+        }
+
+        $products = $query->get();
         return Inertia::render('Products/Index', [
             'products' => ProductsResource::collection($products),
+            'queryParams' => $request->query()
         ]);
     }
 

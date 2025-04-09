@@ -45,7 +45,7 @@ export default function Edit({ auth, product }: ProductProps) {
                         <InputError message={errors.name} className="mt-2 text-red-600" />
                         <br />
                         <Label>Product price</Label>
-                        <Input type="number" value={data.price} onChange={(e) => setData('price', e.target.value)} />
+                        <Input type="number" value={data.price} onChange={(e) => setData('price', Number(e.target.value))} />
                         <InputError message={errors.price} className="mt-2 text-red-600" />
                         <br />
                         <Label>Product description</Label>

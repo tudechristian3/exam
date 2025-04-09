@@ -5,8 +5,11 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import AppLayout from '@/layouts/app-layout';
 import { PageProps, type BreadcrumbItem } from '@/types';
 import { User } from '@/types/index';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { CircleCheckBig } from 'lucide-react';
+import { useState } from 'react';
+import { useDebounce } from '@/hooks/use-debounce';
+
 interface UserProps extends PageProps {
     users: User[];
     queryParams: Record<string, string>;
@@ -19,7 +22,21 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Index({ users, flash }: UserProps) {
+export default function Index({ users, flash, queryParams }: UserProps) {
+    const [search, setSearch] = useState(queryParams.search || '');
+
+    const debouncedSearch = useDebounce((value: string) => {
+        router.get(route('users.index'), { search: value }, {
+            preserveState: true,
+            preserveScroll: true,
+        });
+    }, 300);
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value);
+        debouncedSearch(e.target.value);
+    };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="List of Users" />
@@ -33,7 +50,13 @@ export default function Index({ users, flash }: UserProps) {
                 )}
                 <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border p-10 md:min-h-min">
                     <div className="flex w-full items-start justify-end">
-                        <Input type="email" placeholder="Search..." className="max-w-xs flex-1" />
+                        <Input 
+                            type="text" 
+                            placeholder="Search by name or email..." 
+                            className="max-w-xs flex-1" 
+                            value={search}
+                            onChange={handleSearch}
+                        />
                         <Link href={route('users.create')}>
                             <Button className="ml-3 cursor-pointer">Create</Button>
                         </Link>

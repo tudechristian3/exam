@@ -9,16 +9,34 @@ use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Http\Resources\UserResource;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
+
 class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::with('user')->get();
+        $query = Task::with('user');
+
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('status', 'like', "%{$search}%")
+                  ->orWhereHas('user', function($q) use ($search) {
+                      $q->where('name', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        $tasks = $query->get();
+
         return Inertia::render('Task/Index', [
-            'tasks' => TaskResource::collection($tasks)
+            'tasks' => TaskResource::collection($tasks),
+            'queryParams' => $request->query()
         ]);
     }
 

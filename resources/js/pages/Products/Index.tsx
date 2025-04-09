@@ -1,13 +1,15 @@
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { PageProps, type BreadcrumbItem } from '@/types';
 import { Products } from '@/types/Products';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { CircleCheckBig } from 'lucide-react';
-interface EducationProps extends PageProps {
+import { Input } from '@/components/ui/input';
+import { useState } from 'react';
+import { useDebounce } from '@/hooks/use-debounce'
+interface ProductsProps extends PageProps {
     products: Products[];
     queryParams: Record<string, string>;
 }
@@ -19,7 +21,21 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-export default function Index({ products, flash }: EducationProps) {
+export default function Index({ products, flash, queryParams }: ProductsProps) {
+    const [search, setSearch] = useState(queryParams.search || '');
+
+    const debouncedSearch = useDebounce((value: string) => {
+            router.get(route('products.index'), { search: value }, {
+                preserveState: true,
+                preserveScroll: true,
+            });
+        }, 300);
+
+        const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+            setSearch(e.target.value);
+            debouncedSearch(e.target.value);
+        };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="List of Products" />
@@ -33,7 +49,12 @@ export default function Index({ products, flash }: EducationProps) {
                 )}
                 <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border p-10 md:min-h-min">
                     <div className="flex w-full items-start justify-end">
-                        <Input type="email" placeholder="Search..." className="max-w-xs flex-1" />
+                            <Input
+                                placeholder="Search tasks..."
+                                value={search}
+                                onChange={handleSearch}
+                                className="max-w-xs flex-1"
+                            />
                         <Link href={route('products.create')}>
                             <Button className="ml-3 cursor-pointer">Create</Button>
                         </Link>
