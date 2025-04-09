@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProductsRequest;
 use App\Http\Requests\UpdateProductsRequest;
 use Inertia\Inertia;
 use App\Http\Resources\ProductsResource;
+use Illuminate\Support\Facades\Auth;
 class ProductsController extends Controller
 {
     /**
@@ -14,7 +15,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = Products::all();
+        $products = Products::where('user_id', Auth::user()->id)->get();
         return Inertia::render('Products/Index', [
             'products' => ProductsResource::collection($products),
         ]);
