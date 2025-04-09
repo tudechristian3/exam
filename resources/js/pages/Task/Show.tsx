@@ -40,9 +40,9 @@ const getStatusVariant = (status: string): BadgeVariant => {
 export default function Show({ task }: TaskProps) {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-    const { delete: deleteEducation } = useForm();
+    const { delete: deleteTask } = useForm();
     const handleDelete = () => {
-        deleteEducation(route('tasks.destroy', task?.id));
+        deleteTask(route('tasks.destroy', task?.id));
         setIsDeleteModalOpen(false);
     };
 

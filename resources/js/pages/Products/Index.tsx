@@ -22,7 +22,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 export default function Index({ products, flash }: EducationProps) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="List of Education" />
+            <Head title="List of Products" />
 
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 {flash?.message && (
