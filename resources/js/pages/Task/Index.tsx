@@ -5,8 +5,12 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import AppLayout from '@/layouts/app-layout';
 import { PageProps, type BreadcrumbItem } from '@/types';
 import { Tasks } from '@/types/Tasks';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { CircleCheckBig } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { useState } from 'react';
+import { useDebounce } from '@/hooks/use-debounce';
+
 interface TaskProps extends PageProps {
     tasks: Tasks[];
     queryParams: Record<string, string>;
@@ -36,7 +40,21 @@ const getStatusVariant = (status: string): BadgeVariant => {
     }
 };
 
-export default function Index({ tasks, flash }: TaskProps) {
+export default function Index({ tasks, flash, queryParams }: TaskProps) {
+    const [search, setSearch] = useState(queryParams.search || '');
+
+    const debouncedSearch = useDebounce((value: string) => {
+        router.get(route('tasks.index'), { search: value }, {
+            preserveState: true,
+            preserveScroll: true,
+        });
+    }, 300);
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value);
+        debouncedSearch(e.target.value);
+    };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="List of Tasks" />
@@ -50,11 +68,16 @@ export default function Index({ tasks, flash }: TaskProps) {
                 )}
                 <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border p-10 md:min-h-min">
                     <div className="flex w-full items-start justify-end">
+                            <Input
+                                placeholder="Search tasks..."
+                                value={search}
+                                onChange={handleSearch}
+                                className="max-w-xs flex-1"
+                            />
                         <Link href={route('tasks.create')}>
                             <Button className="ml-3 cursor-pointer">Create</Button>
                         </Link>
                     </div>
-                    <br />
                     <Table>
                         {tasks.length === 0 && <TableCaption>No Tasks Found.</TableCaption>}
                         <TableHeader>
