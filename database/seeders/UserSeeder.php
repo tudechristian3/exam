@@ -16,14 +16,16 @@ class UserSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        User::create([
-            'id' => 1,
-            'name' => "Test User",
-            'email' => "test@example.com",
-            'password' => Hash::make('admin123')
-        ]);
+        // Check if test user exists before creating
+        if (!User::where('email', 'test@example.com')->exists()) {
+            User::create([
+                'name' => "Test User",
+                'email' => "test@example.com",
+                'password' => Hash::make('admin123')
+            ]);
+        }
 
-        foreach (range(1, 10) as $index) {
+        foreach (range(1, 4) as $index) {
             User::create([
                 'name' => $faker->name,
                 'email' => $faker->unique()->safeEmail,

@@ -17,7 +17,7 @@ class TaskSeeder extends Seeder
         // Ensure there's at least one user to assign tasks to
         $user = User::first() ?? User::factory()->create();
 
-        foreach (range(1, 10) as $i) {
+        foreach (range(1, 5) as $i) {
             Task::create([
                 'user_id' => $user->id,
                 'title' => "Sample Task $i",
