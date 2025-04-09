@@ -36,7 +36,7 @@ export default function Edit({ auth, product }: ProductProps) {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Edit Education" />
+            <Head title="Edit Product" />
             <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
                 <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border p-10 md:min-h-min">
                     <form onSubmit={handleSubmit}>
