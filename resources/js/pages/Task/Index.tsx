@@ -1,7 +1,6 @@
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { PageProps, type BreadcrumbItem } from '@/types';
@@ -51,7 +50,6 @@ export default function Index({ tasks, flash }: TaskProps) {
                 )}
                 <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border p-10 md:min-h-min">
                     <div className="flex w-full items-start justify-end">
-                        <Input type="email" placeholder="Search..." className="max-w-xs flex-1" />
                         <Link href={route('tasks.create')}>
                             <Button className="ml-3 cursor-pointer">Create</Button>
                         </Link>
