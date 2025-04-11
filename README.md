@@ -96,6 +96,6 @@ php artisan test --filter Unit
 
 The application will be available at `http://localhost:8000`
 
-##ERD
+## ERD
 
 ![Exam_ERD drawio (1)](https://github.com/user-attachments/assets/d449498e-6cc7-467d-8dcf-60b09ad08ff2)
