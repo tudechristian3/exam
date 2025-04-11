@@ -53,8 +53,8 @@ export default function Show({ user, productsCount, tasksCount }: UserProps) {
                                         isOpen={isDeleteModalOpen}
                                         onClose={() => setIsDeleteModalOpen(false)}
                                         onConfirm={handleDelete}
-                                        title="Confirm Product Deletion"
-                                        message="Are you sure you want to delete this product?"
+                                        title="Confirm User Deletion"
+                                        message="Are you sure you want to delete this user?"
                                         cancelButtonText="Cancel"
                                     />
                                 </div>

@@ -70,8 +70,8 @@ export default function Show({ task }: TaskProps) {
                                         isOpen={isDeleteModalOpen}
                                         onClose={() => setIsDeleteModalOpen(false)}
                                         onConfirm={handleDelete}
-                                        title="Confirm Product Deletion"
-                                        message="Are you sure you want to delete this product?"
+                                        title="Confirm Task Deletion"
+                                        message="Are you sure you want to delete this task?"
                                         cancelButtonText="Cancel"
                                     />
                                 </div>
