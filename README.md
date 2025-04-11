@@ -79,7 +79,7 @@ php artisan optimize
 
 Run the PHPUnit tests:
 ```bash
-php artisan test
+php artisan test --filter Unit
 ```
 The application will be available at `http://localhost:8000`
 
