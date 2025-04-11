@@ -14,8 +14,8 @@ This is a Laravel application with React frontend, using Inertia.js for seamless
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd tude-exam
+git clone https://github.com/tudechristian3/exam.git
+cd exam
 ```
 
 2. Install PHP dependencies:
@@ -70,27 +70,10 @@ php artisan serve
 npm run dev
 ```
 
-The application will be available at `http://localhost:8000`
-
-## Building for Production
-
-1. Build the frontend assets:
-```bash
-npm run build
-```
-
-2. Optimize the application:
+3. Optimize the application:
 ```bash
 php artisan optimize
 ```
-
-## Available Scripts
-
-- `npm run dev` - Start the Vite development server
-- `npm run build` - Build the frontend assets for production
-- `npm run format` - Format code using Prettier
-- `npm run lint` - Run ESLint to check code quality
-- `npm run types` - Check TypeScript types
 
 ## Testing
 
@@ -98,28 +81,6 @@ Run the PHPUnit tests:
 ```bash
 php artisan test
 ```
+The application will be available at `http://localhost:8000`
 
-## Code Style
 
-This project uses:
-- Prettier for code formatting
-- ESLint for code linting
-- TypeScript for type checking
-
-Run the following commands to ensure code quality:
-```bash
-npm run format
-npm run lint
-npm run types
-```
-
-## Contributing
-
-1. Create a new branch for your feature
-2. Make your changes
-3. Run the tests and ensure they pass
-4. Submit a pull request
-
-## License
-
-[Your License Here] 
