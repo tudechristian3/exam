@@ -1,9 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import AppLayout from '@/layouts/app-layout';
 import { PageProps, type BreadcrumbItem } from '@/types';
-import { User } from '@/types/index';
-import { Products } from '@/types/Products';
-import { Tasks } from '@/types/Tasks';
 import { Head, Link } from '@inertiajs/react';
 import { CheckCircle, Package, Users } from 'lucide-react';
 
@@ -15,26 +12,13 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 interface ProductsProps extends PageProps {
-    products: Products[];
-    users: User[];
-    tasks: Tasks[];
+    products: number;
+    users: number
+    tasks: number
     queryParams: Record<string, string>;
 }
 
 export default function Dashboard({ products, users, tasks }: ProductsProps) {
-    // Calculate stats from actual data
-    const stats = {
-        tasks: {
-            total: tasks.length,
-        },
-        products: {
-            total: products.length,
-        },
-        users: {
-            total: users.length,
-        },
-    };
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
@@ -47,7 +31,7 @@ export default function Dashboard({ products, users, tasks }: ProductsProps) {
                             <CheckCircle className="text-muted-foreground h-4 w-4" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">{stats.tasks.total}</div>
+                            <div className="text-2xl font-bold">{tasks}</div>
                             <Link href="/tasks" className="text-primary text-xs hover:underline">
                                 View more
                             </Link>
@@ -61,7 +45,7 @@ export default function Dashboard({ products, users, tasks }: ProductsProps) {
                             <Package className="text-muted-foreground h-4 w-4" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">{stats.products.total}</div>
+                            <div className="text-2xl font-bold">{products}</div>
                             <Link href="/products" className="text-primary text-xs hover:underline">
                                 View more
                             </Link>
@@ -75,7 +59,7 @@ export default function Dashboard({ products, users, tasks }: ProductsProps) {
                             <Users className="text-muted-foreground h-4 w-4" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">{stats.users.total}</div>
+                            <div className="text-2xl font-bold">{users}</div>
                             <Link href="/users" className="text-primary text-xs hover:underline">
                                 View more
                             </Link>

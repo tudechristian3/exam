@@ -14,13 +14,13 @@ use App\Http\Resources\TaskResource;
 class DashboardController extends Controller
 {
     public function index(){
-        $products = Products::where('user_id', Auth::user()->id)->get();
-        $users = User::get();
-        $tasks = Task::get();
+        $products = Products::where('user_id', Auth::user()->id)->count();
+        $users = User::count();
+        $tasks = Task::count();
         return Inertia::render('dashboard', [
-            'products' => ProductsResource::collection($products),
-            'users' => UserResource::collection($users),
-            'tasks' => TaskResource::collection($tasks),
+            'products' => $products,
+            'users' => $users,
+            'tasks' => $tasks,
         ]);
     }
 }

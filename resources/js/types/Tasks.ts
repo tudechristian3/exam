@@ -7,4 +7,5 @@ export interface Tasks {
     description: string;
     status: string;
     user: User;
+    count: number;
 }
